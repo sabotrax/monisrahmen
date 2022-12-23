@@ -1,0 +1,15 @@
+__pycache__
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+[Ss]hare
+[Ss]tatus
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+config.py
+pictures
