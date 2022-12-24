@@ -30,7 +30,7 @@ for num in id_list:
     x = re.search(r'Subject:\s([\w\s]+)\n', str(email_message), re.DOTALL)
     print(x)
     if not x or x.group(1).lower() != config.email_keyword:
-        print("naechster!")
+        print("skip!")
         i += 1
         continue
 
@@ -50,15 +50,27 @@ for num in id_list:
                 fp.close()
                 print("attachment: ", filePath)
                 try:
+                    # verify image
                     img = Image.open(filePath)
                     img.verify()
+                    print("image verified")
+                    # rotate image because of the portrait orientation of the frame
+                    # open twice because of verify()
+                    img = Image.open(filePath)
+                    img.load()
+                    size = img.size
+                    img_x, img_y = size[0], size[1]
+                    print(f'size: {img_x}x{img_y}')
+                    if img_y > img_x:
+                        rotated_img = img.transpose(Image.ROTATE_270)
+                        rotated_img.save(filePath)
+                        print("rotated")
                     img.close()
-                    print("image ok")
-                except:
-                    print("not an image")
+                except Exception as e:
+                    print(e)
                     os.remove(filePath)
     i += 1
-    print("geloescht: ", num)
+    print("deleted email: ", num)
     #imap.store(num, "+FLAGS", "\\Deleted")
 
 imap.expunge()
