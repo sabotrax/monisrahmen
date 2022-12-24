@@ -6,6 +6,7 @@ import email
 import imaplib
 import os
 import re
+from PIL import Image
 
 imap = imaplib.IMAP4_SSL(config.email_host, config.email_port)
 imap.login(config.email_user, config.email_pass)
@@ -47,6 +48,15 @@ for num in id_list:
                 fp = open(filePath, 'wb')
                 fp.write(part.get_payload(decode=True))
                 fp.close()
+                print("attachment: ", filePath)
+                try:
+                    img = Image.open(filePath)
+                    img.verify()
+                    img.close()
+                    print("image ok")
+                except:
+                    print("not an image")
+                    os.remove(filePath)
     i += 1
     print("geloescht: ", num)
     #imap.store(num, "+FLAGS", "\\Deleted")
