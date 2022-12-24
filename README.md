@@ -4,7 +4,7 @@ A smart frame you can send emails to.
 
 ## Description
 
-Send pictures as email attachments to an email address.
+Send pictures as email attachments.
 They will be downloaded, adjusted and displayed in a loop.
 
 ## Acknowledgments
