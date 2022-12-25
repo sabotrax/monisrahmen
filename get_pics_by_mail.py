@@ -5,7 +5,10 @@ import config
 import email
 import imaplib
 import os
+import random
 import re
+import string
+from datetime import datetime
 from PIL import Image
 
 imap = imaplib.IMAP4_SSL(config.email_host, config.email_port)
@@ -19,6 +22,7 @@ id_list = mail_ids.split()
 id_list.reverse()
 
 
+# rotate image
 def process_image(filePath):
     # rotate image because of the
     # portrait orientation of the frame
@@ -34,22 +38,37 @@ def process_image(filePath):
     print("image rotated")
 
 
+# create a useful filename
+# currently unused
+def create_filename(email_message):
+    match = re.search(r'From:\s.*<(\S+@\S+)>\n', str(email_message))
+    print(match)
+    if match:
+        filename = re.sub(r'[^\w]', '_', match.group(1))
+        now = datetime.now()
+        filename += now.strftime("-%Y%m%d-%H%M-")
+        letters = string.ascii_lowercase
+        rnd_str = ''.join(random.choice(letters) for i in range(5))
+        filename += rnd_str
+        return filename
+
+
 i = 0
 for num in id_list:
-    if i == 3:
+    if i >= 3:
         break
     typ, data = imap.fetch(num, '(RFC822)')
     # converts byte literal to string removing b''
     raw_email = data[0][1]
     raw_email_string = raw_email.decode('utf-8')
     email_message = email.message_from_string(raw_email_string)
-    x = re.search(r'Subject:\s([\w\s]+)\n', str(email_message), re.DOTALL)
-    print(x)
-    if not x or x.group(1).lower() != config.email_keyword:
+    # check the email subject for the keyword
+    match = re.search(r'Subject:\s([\w\s]+)\n', str(email_message), re.DOTALL)
+    print(match)
+    if not match or match.group(1).lower() != config.email_keyword:
         print("skip!")
         i += 1
         continue
-
     # download attachments
     for part in email_message.walk():
         if part.get_content_maintype() == 'multipart':
