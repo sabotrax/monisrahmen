@@ -11,12 +11,28 @@ from PIL import Image
 imap = imaplib.IMAP4_SSL(config.email_host, config.email_port)
 imap.login(config.email_user, config.email_pass)
 
-imap.select('Inbox')
+imap.select(config.email_inbox)
 type, data = imap.search(None, 'ALL')
 print("FETCH: ", type)
 mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
+
+
+def process_image(filePath):
+    # rotate image because of the
+    # portrait orientation of the frame
+    # open twice because of verify()
+    img = Image.open(filePath)
+    img.load()
+    size = img.size
+    img_x, img_y = size[0], size[1]
+    print(f'size: {img_x}x{img_y}')
+    rotated_img = img.transpose(Image.Transpose.ROTATE_90)
+    rotated_img.save(filePath)
+    img.close()
+    print("image rotated")
+
 
 i = 0
 for num in id_list:
@@ -53,22 +69,15 @@ for num in id_list:
                     # verify image
                     img = Image.open(filePath)
                     img.verify()
-                    print("image verified")
-                    # rotate image because of the portrait orientation of the frame
-                    # open twice because of verify()
-                    img = Image.open(filePath)
-                    img.load()
-                    size = img.size
-                    img_x, img_y = size[0], size[1]
-                    print(f'size: {img_x}x{img_y}')
-                    if img_y > img_x:
-                        rotated_img = img.transpose(Image.ROTATE_270)
-                        rotated_img.save(filePath)
-                        print("rotated")
                     img.close()
+                    print("image verified")
                 except Exception as e:
                     print(e)
                     os.remove(filePath)
+                    i += 1
+                    continue
+
+                process_image(filePath)
     i += 1
     print("deleted email: ", num)
     #imap.store(num, "+FLAGS", "\\Deleted")
