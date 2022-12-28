@@ -5,12 +5,37 @@ A smart frame you can send emails to.
 ## Description
 
 Send pictures as email attachments.
-They will be downloaded, adjusted and displayed in a loop.
+They will be downloaded, adjusted and displayed in a loop.  
+A motion sensor will blank the screen after some time of inactivity.
+Optionally, a network share serving the pictures can be created.
+
+The mounting frame is 3D printed.  
+Some light soldering is required.
+
+### Bill of materials
+
+* Raspberry Pi 2  
+  The old model 2 is sufficient for this project and can be found for relatively cheap in late 2022.
+* WaveShare model 7" IPS/QLED Integrated Display, 1024x600, 70H-1024600
+* RCWL-0516 doppler radar microwave motion sensor module
+* A short and flexible HDMI cable
+* 8 M2.5 screws, nuts and standoffs  
+  Plastic is fine.
+* USB-A to Micro USB-B cable, USB-A to USB-C cable
+* Dual USB wall charger
+  The power draw of the display is about 350 mA.
+* 4 square head male-to-female jumper wires
+* Small cable ties
+
+### Tools
+
+* Soldering equipment
+* Hot glue gun
 
 ### Installing
 
-* Configure the display in /boot/config.txt.
-    Depending on the model.
+* Configure the display in /boot/config.txt.  
+    Depending on the display model.  
     For the WaveShare model 7" IPS/QLED 1024x600 70H-1024600:
     ```
     hdmi_group=2
@@ -19,11 +44,11 @@ They will be downloaded, adjusted and displayed in a loop.
     hdmi_drive=1
     ```
 
-* Suppress boot messages by appending to the end of the line of /boot/cmdline.txt:
+* To make the boot process quieter, append to the end of the line of /boot/cmdline.txt:
     ```
     consoleblank=1 logo.nologo vt.global_cursor_default=0
     ```
-* For the same reason add to /boot/config.txt:
+    Add to /boot/config.txt:
     ```
     avoid_warnings=1
     disable_splash=1
@@ -31,5 +56,7 @@ They will be downloaded, adjusted and displayed in a loop.
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
+Inspiration, documentation, code snippets, etc.
 * [Building a living photo frame](https://www.ofbrooklyn.com/2014/01/2/building-photo-frame-raspberry-pi-motion-detector/)
+* Waveshare display [Wiki](https://www.waveshare.com/wiki/70H-1024600) 
+* Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
