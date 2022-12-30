@@ -3,7 +3,7 @@
 # this script should be run by root's crontab
 # see README.md
 
-# change this path according to your installation
+# change accordingly to your installation directory
 cd /home/schommer/monisrahmen
 # wait for network
 sleep 20

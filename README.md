@@ -36,7 +36,7 @@ Some light soldering is required.
 ### Installing
 
 * Install Pi OS Lite 32-bit using the Raspberry Pi Imager.  
-  You can set up the hostname, user account, SSH and Wifi in the option section of the Imager.
+  You can set up the hostname, user account, SSH and Wifi in the options of the Imager.
   You should now be able to ssh into your Raspberry.
 
 * Install dependencies:
@@ -135,9 +135,36 @@ Some light soldering is required.
     guest ok = yes
     ```
 
+    Change directory rights so image files can be deleted remotely:
+    ```
+    chmod 777 pictures
+    ```
+
+* Edit shell scripts.
+    Change installation directory in ```sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.
+
+* Setup Cron.  
+    For your user ``crontab -e``
+    ```
+    @reboot                /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/blank_screen.py
+    0,15,30,45 * * * *     /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/get_pics_by_mail.py
+    ```
+
+    For root ``sudo crontab -e``
+    ```
+    @reboot                /home/schommer/monisrahmen/sitebin/startup.sh
+    2,17,32,47 * * * *     /home/schommer/monisrahmen/sitebin/restart_fbi.sh
+    ```
+
+    Adjust paths according to your installation directory.  
+    Notice that fbi is restarted shortly after emails have been checked.
+
 ## Acknowledgments
 
 Inspiration, documentation, code snippets, etc.
 * [Building a living photo frame](https://www.ofbrooklyn.com/2014/01/2/building-photo-frame-raspberry-pi-motion-detector/)
 * Waveshare display [Wiki](https://www.waveshare.com/wiki/70H-1024600) 
 * Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
+* Crontab configuration ``man 5 crontab``
+* Samba configuration ``man 5 smb.conf``
+* fbi - Linux framebuffer imageviewer ``man fbi``
