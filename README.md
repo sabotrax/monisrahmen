@@ -7,7 +7,7 @@ A smart frame you can send emails to.
 Send pictures as email attachments.
 They will be downloaded, adjusted and displayed in a loop.  
 A motion sensor will blank the screen after some time of inactivity.  
-Optionally, a network share for the pictures can be created.
+The image files can be remotely accessed via network share.
 
 The mounting frame is 3D printed.  
 Some light soldering is required.
@@ -37,11 +37,11 @@ Some light soldering is required.
 
 * Install Pi OS Lite 32-bit using the Raspberry Pi Imager.  
   You can set up the hostname, user account, SSH and Wifi in the options of the Imager.
-  You should now be able to ssh into your Raspberry.
+  You should then be able to ssh into your Raspberry.
 
 * Install dependencies:
     ```
-    sudo apt-get install fonts-dejavu-core git python3 python3-pip python3-venv samba tmux
+    sudo apt-get install fonts-dejavu-core git python3 python3-pip python3-venv samba
     ```
 
 * Download the software:
@@ -49,7 +49,7 @@ Some light soldering is required.
     git clone https://github.com/sabotrax/monisrahmen.git
     ```
 
-* Create the virtual environment for Python and install the modules:
+* Create the virtual environment for Python and install the required modules:
     ```
     cd monisrahmen
     python3 -m venv .
@@ -58,7 +58,7 @@ Some light soldering is required.
     echo "source ~/monisrahmen/bin/activate" >> ~/.bashrc
     ```
 
-* Create the configuration file ``config.py``:
+* Create ``config.py``:
     ```
     # email settings
     email_user = "IMAP_USER"
@@ -77,7 +77,7 @@ Some light soldering is required.
     picture_path = project_path + "/pictures"
 
     # blank screen after
-    display_timeout = 120
+    display_timeout = 120  # seconds
 
     # network error message
     network_error = "Kein Netzwerk!"
@@ -98,18 +98,19 @@ Some light soldering is required.
     hdmi_drive=1
     ```
 
-* Also in ``/boot/config.txt`` for the display blanking:
+* Again in ``/boot/config.txt`` for the display blanking:
     ```
     #dtoverlay=vc4-kms-v3d
     hdmi_blanking=1
     ```
     Blanking a HDMI display only worked on the Pi 2 if we used the legacy graphics driver.
 
-* Rotate the display (optional):  
-    Tate Mode for the virtual console.
+* Rotate the virtual console (optional):  
+    Tate Mode looks nicer if you want to login locally.
     ```
     display_hdmi_rotate=3
     ```
+    This also only worked with the legacy driver.
 
 * Suppress boot messages.  
     Append to the end of the line of ``/boot/cmdline.txt``:
@@ -127,6 +128,7 @@ Some light soldering is required.
     Add to the end of ``/etc/samba/smb.conf``:
     ```
     [bilder]
+    # change accordingly to your installation directory
     path = /home/schommer/monisrahmen/pictures/
     public = yes
     writable = yes
@@ -135,15 +137,15 @@ Some light soldering is required.
     guest ok = yes
     ```
 
-    Change directory rights so image files can be deleted remotely:
+    Change directory rights so image files can be deleted from your file manager:
     ```
     chmod 777 pictures
     ```
 
-* Edit shell scripts.
-    Change installation directory in ```sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.
+* Edit shell scripts.  
+    Change installation directory in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.
 
-* Setup Cron.  
+* Set up Cron.  
     For your user ``crontab -e``
     ```
     @reboot                /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/blank_screen.py
@@ -157,7 +159,7 @@ Some light soldering is required.
     ```
 
     Adjust paths according to your installation directory.  
-    Notice that fbi is restarted shortly after emails have been checked.
+    Notice that fbi is getting restarted shortly after emails have been checked.
 
 ## Acknowledgments
 
