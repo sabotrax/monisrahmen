@@ -6,8 +6,8 @@ A smart frame you can send emails to.
 
 Send pictures as email attachments.
 They will be downloaded, adjusted and displayed in a loop.  
-A motion sensor will blank the screen after some time of inactivity.
-Optionally, a network share serving the pictures can be created.
+A motion sensor will blank the screen after some time of inactivity.  
+Optionally, a network share for the pictures can be created.
 
 The mounting frame is 3D printed.  
 Some light soldering is required.
@@ -35,7 +35,61 @@ Some light soldering is required.
 
 ### Installing
 
-* Configure the display in /boot/config.txt.  
+* Install Pi OS Lite 32-bit using the Raspberry Pi Imager.  
+  You can set up the hostname, user account, SSH and Wifi in the option section of the Imager.
+  You should now be able to ssh into your Raspberry.
+
+* Install dependencies:
+    ```
+    sudo apt-get install fonts-dejavu-core git python3 python3-pip python3-venv samba tmux
+    ```
+
+* Download the software:
+    ```
+    git clone https://github.com/sabotrax/monisrahmen.git
+    ```
+
+* Create the virtual environment for Python and install the modules:
+    ```
+    cd monisrahmen
+    python3 -m venv .
+    source bin/activate
+    pip3 install -r requirements.txt
+    echo "source ~/monisrahmen/bin/activate" >> ~/.bashrc
+    ```
+
+* Create the configuration file ``config.py``:
+    ```
+    # email settings
+    email_user = "IMAP_USER"
+    email_pass = "IMAP_PASSWORD"
+    email_host = "IMAP_HOST"
+    email_port = 993
+    email_inbox = 'Inbox'
+
+    # email subject for image processing
+    email_keyword = 'bild'
+
+    # installation directory
+    project_path = "/home/schommer/monisrahmen"
+
+    # image directory
+    picture_path = project_path + "/pictures"
+
+    # blank screen after
+    display_timeout = 120
+
+    # network error message
+    network_error = "Kein Netzwerk!"
+
+    screen_width = 1024
+    screen_height = 600
+
+    # splash image text
+    font_size = 40
+    ```
+
+* Configure the display in ``/boot/config.txt``.  
     For the WaveShare model 7" IPS/QLED 1024x600 70H-1024600:
     ```
     hdmi_group=2
@@ -44,7 +98,7 @@ Some light soldering is required.
     hdmi_drive=1
     ```
 
-* Also in /boot/config.txt for the display blanking:
+* Also in ``/boot/config.txt`` for the display blanking:
     ```
     #dtoverlay=vc4-kms-v3d
     hdmi_blanking=1
@@ -57,14 +111,28 @@ Some light soldering is required.
     display_hdmi_rotate=3
     ```
 
-* To make the boot process quieter, append to the end of the line of /boot/cmdline.txt:
+* Suppress boot messages.  
+    Append to the end of the line of ``/boot/cmdline.txt``:
     ```
     consoleblank=1 logo.nologo vt.global_cursor_default=0
     ```
-    Add to /boot/config.txt:
+
+    Add to ``/boot/config.txt``:
     ```
     avoid_warnings=1
     disable_splash=1
+    ```
+
+* Configure the Samba share.  
+    Add to the end of ``/etc/samba/smb.conf``:
+    ```
+    [bilder]
+    path = /home/schommer/monisrahmen/pictures/
+    public = yes
+    writable = yes
+    comment = Bilder
+    printable = no
+    guest ok = yes
     ```
 
 ## Acknowledgments
