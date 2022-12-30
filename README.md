@@ -72,7 +72,7 @@ Some light soldering is required.
     email_inbox = 'Inbox'
 
     # email subject for image processing
-    email_keyword = 'bild'
+    email_keyword = 'foto'
 
     # installation directory
     project_path = "/home/schommer/monisrahmen"
@@ -102,21 +102,20 @@ Some light soldering is required.
     hdmi_drive=1
     ```
 
-* Again in ``/boot/config.txt`` for the display blanking:
+    Display blanking:
     ```
     #dtoverlay=vc4-kms-v3d
     hdmi_blanking=1
     ```
     Blanking an HDMI display would work only on the Pi 2 if we used the legacy graphics driver.
 
-* Rotate the virtual console (optional):  
-    Tate Mode looks nicer if you want to login to the console.
+    Rotate the virtual console:
     ```
     display_hdmi_rotate=3
     ```
     This would also only work with the legacy driver.
 
-* Suppress boot messages.  
+* Suppress the boot messages.  
     Append to the end of the line of ``/boot/cmdline.txt``:
     ```
     consoleblank=1 logo.nologo vt.global_cursor_default=0
@@ -146,8 +145,9 @@ Some light soldering is required.
     chmod 777 pictures
     ```
 
-* Edit shell scripts.  
-    Change installation directory in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.
+* Edit the shell scripts.  
+    Change installation directory in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
+    The image reload interval can also be configured in ``sitebin/restart_fbi.sh``.
 
 * Set up Cron.  
     For your user ``crontab -e``
