@@ -40,7 +40,7 @@ Some light soldering is required.
 ### Installing
 
 * Install Pi OS Lite 32-bit using the Raspberry Pi Imager.  
-  You can set up the hostname, user account, SSH and Wifi in the options of the Imager.
+  You can set up the host name, user account, SSH and Wifi in the options of the Imager.
   You should then be able to ssh into your Raspberry.
 
 * Install dependencies:
@@ -107,14 +107,14 @@ Some light soldering is required.
     #dtoverlay=vc4-kms-v3d
     hdmi_blanking=1
     ```
-    Blanking a HDMI display only worked on the Pi 2 if we used the legacy graphics driver.
+    Blanking an HDMI display would work only on the Pi 2 if we used the legacy graphics driver.
 
 * Rotate the virtual console (optional):  
-    Tate Mode looks nicer if you want to login locally.
+    Tate Mode looks nicer if you want to login to the console.
     ```
     display_hdmi_rotate=3
     ```
-    This also only worked with the legacy driver.
+    This would also only work with the legacy driver.
 
 * Suppress boot messages.  
     Append to the end of the line of ``/boot/cmdline.txt``:
@@ -163,7 +163,7 @@ Some light soldering is required.
     ```
 
     Adjust paths according to your installation directory.  
-    Notice that fbi is getting restarted shortly after emails have been checked.
+    Notice that fbi is being restarted shortly after emails have been checked.
 
 ## Acknowledgments
 
@@ -173,4 +173,4 @@ Inspiration, documentation, code snippets, etc.
 * Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
 * Crontab configuration ``man 5 crontab``
 * Samba configuration ``man 5 smb.conf``
-* fbi - Linux framebuffer imageviewer ``man fbi``
+* fbi - Linux framebuffer image viewer ``man fbi``
