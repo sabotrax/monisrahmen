@@ -23,6 +23,7 @@ id_list.reverse()
 
 
 # rotate image
+# currently unused
 def process_image(filePath):
     # rotate image because of the
     # portrait orientation of the frame
@@ -38,7 +39,7 @@ def process_image(filePath):
     print("image rotated")
 
 
-# create a useful filename
+# create a useful file name
 # currently unused
 def create_filename(email_message):
     match = re.search(r'From:\s.*<(\S+@\S+)>\n', str(email_message))
@@ -96,7 +97,7 @@ for num in id_list:
                     i += 1
                     continue
 
-                process_image(filePath)
+                #process_image(filePath)
     i += 1
     print("deleted email: ", num)
     #imap.store(num, "+FLAGS", "\\Deleted")
