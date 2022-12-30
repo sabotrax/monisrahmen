@@ -97,10 +97,11 @@ for num in id_list:
                     i += 1
                     continue
 
-                #process_image(filePath)
+                # process_image(filePath)
     i += 1
-    print("deleted email: ", num)
-    #imap.store(num, "+FLAGS", "\\Deleted")
+    if config.delete_email:
+        print("deleted email: ", num)
+        imap.store(num, "+FLAGS", "\\Deleted")
 
 imap.expunge()
 imap.close()

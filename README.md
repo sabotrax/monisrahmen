@@ -16,6 +16,7 @@ Some light soldering is required.
 
 * 1 Raspberry Pi 2  
   The old model 2 is sufficient for this project and can be found for relatively cheap in late 2022.
+* 1 USB WLAN adapter like Edimax or TP-Link brand
 * 1 WaveShare model 7" IPS/QLED Integrated Display, 1024x600, 70H-1024600
 * 1 RCWL-0516 doppler radar microwave motion sensor module
 * 1 HDMI cable, short and flexible
@@ -73,6 +74,9 @@ Some light soldering is required.
 
     # email subject for image processing
     email_keyword = 'foto'
+
+    # delete emails after retrieval
+    delete_email = False
 
     # installation directory
     project_path = "/home/schommer/monisrahmen"
