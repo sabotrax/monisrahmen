@@ -6,7 +6,7 @@ A smart frame you can send emails to.
 
 Send pictures as email attachments.
 They will be downloaded, adjusted and displayed in a loop.  
-A motion sensor will blank the screen after some time of inactivity.  
+A motion sensor will blank the screen after some inactivity.  
 The image files can be remotely accessed via network share.
 
 The mounting frame is 3D printed.  
@@ -32,6 +32,10 @@ Some light soldering is required.
 
 * Soldering equipment
 * Hot glue gun
+
+### Hardware setup
+
+* TBD
 
 ### Installing
 
