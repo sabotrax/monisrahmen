@@ -5,7 +5,7 @@ A smart frame you can send emails to.
 ## Description
 
 Send pictures as email attachments.
-They will be downloaded, adjusted and displayed in a loop.  
+They will be downloaded and displayed in a loop.  
 A motion sensor will blank the screen after some inactivity.  
 The image files can be remotely accessed via network share.
 
@@ -26,8 +26,9 @@ Some light soldering is required.
 * 1 USB-A to USB-C cable
 * 1 Dual USB wall charger  
   The power draw of the display is about 350 mA.
-* 4 square head male-to-female jumper wires
-* 1 Small cable tie
+* 4 square head female-to-female dupont cables
+* 1 4x1 male pin-headers
+* Small cable ties
 
 ### Tools
 
@@ -94,7 +95,7 @@ Some light soldering is required.
     screen_height = 600
 
     # splash image text
-    font_size = 40
+    font_size = 30
     ```
 
 * Configure the display in ``/boot/config.txt``.  
@@ -150,7 +151,7 @@ Some light soldering is required.
     ```
 
 * Edit the shell scripts.  
-    Change installation directory in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
+    Change the installation directories in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
     The image reload interval can also be configured in ``sitebin/restart_fbi.sh``.
 
 * Set up Cron.  
