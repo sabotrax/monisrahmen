@@ -4,13 +4,15 @@ import config
 import netifaces as ni
 from PIL import Image, ImageDraw, ImageFont
 
+image_text = f'E-Mail: {config.email_user}\n\n'
+
 try:
     ip_address = ni.ifaddresses('wlan0')[ni.AF_INET][0]['addr']
     # this path should match with the Samba configuration
-    image_text = f'\\\\{ip_address}\\bilder'
+    image_text += f'Freigabe: \\\\{ip_address}\\bilder'
 except Exception as e:
     print(e)
-    image_text = config.network_error
+    image_text += config.network_error
 
 # switched because of portrait mode
 width = config.screen_height
