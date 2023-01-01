@@ -2,7 +2,8 @@
 
 A digital picture frame you can send emails to.
 
-![Assembled frame](site_documents/assembled.jpg){:width="100px"}
+<!--- ![Assembled frame](site_documents/assembled.jpg){:width="100px"} --->
+<img src="site_documents/assembled.jpg" width="100">
 
 ## Description
 
