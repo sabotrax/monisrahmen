@@ -2,9 +2,9 @@
 
 A digital picture frame you can send emails to.
 
-## Description
+![Assembled frame](site_documents/assembled.jpg | width=200)
 
-![Assembled frame](site_documents/assembled.jpg)
+## Description
 
 Send pictures as email attachments.
 They will be downloaded and displayed in a loop.  
