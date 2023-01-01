@@ -9,5 +9,6 @@ Pillow==9.3.0
 pkg_resources==0.0.0
 requests==2.28.1
 RPi.GPIO==0.7.1
+tinydb==4.7.0
 urllib3==1.26.13
 yarg==0.1.9
