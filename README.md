@@ -2,8 +2,7 @@
 
 A digital picture frame you can send emails to.
 
-<!--- ![Assembled frame](site_documents/assembled.jpg){:width="100px"} --->
-<img src="site_documents/assembled.jpg" width="100">
+<img src="site_documents/assembled.jpg" width="400">
 
 ## Description
 
@@ -40,7 +39,7 @@ Some light soldering is required.
 
 ### Hardware setup
 
-* TBD
+* See [ASSEMBLY](site_documents/ASSEMBLY.md).
 
 ### Installing
 
