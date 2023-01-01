@@ -1,6 +1,6 @@
 # monisrahmen
 
-A smart frame you can send emails to.
+A digital picture frame you can send emails to.
 
 ## Description
 
