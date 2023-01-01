@@ -4,6 +4,8 @@ A digital picture frame you can send emails to.
 
 ## Description
 
+![Assembled frame](site_documents/assembled.jpg)
+
 Send pictures as email attachments.
 They will be downloaded and displayed in a loop.  
 A motion sensor will blank the screen after some inactivity.  
