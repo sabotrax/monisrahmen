@@ -20,7 +20,7 @@ The outcome should look like this:
 
 ### Step 2
 
-Screw 8 standoffs onto the screws.
+Screw 8 M2.5 standoffs onto the screws.
 
 <img src="assembly-2.jpg" width="400">
 
@@ -31,20 +31,28 @@ The outcome should look like this:
 ### Step 3
 
 Solder 4x1 pin-headers to the back side of the sensor board.  
-The actual sensor is facing away from you.
+The sensor's antenna is facing away from you.
 
 <img src="assembly-3.jpg" width="400">
 
 ### Step 4
 
-Connect the boards (board pins, not BCM).
-* Pi to radar sensor board
-  2 - VIN
-  6 - GND
-  11 - OUT
-  13 - CDS
-* Pi to HDMI board
-  12 - PWM
-  14 - GND
+Connect the boards (board pins, not BCM) using 6 DuPont cables.
+* Pi to radar sensor board  
+  2 - VIN  
+  6 - GND  
+  11 - OUT  
+  13 - CDS  
+* Pi to HDMI board  
+  12 - PWM  
+  14 - GND  
 
 <img src="assembly-4.jpg" width="400">
+
+Mount the Pi and sensor board onto the standoffs and secure them down with 8 M2.5 nuts.
+
+<img src="assembly-4-2.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-4-3.jpg" width="400">

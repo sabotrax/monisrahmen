@@ -28,7 +28,7 @@ Some light soldering is required.
 * 1 USB-A to USB-C cable
 * 1 Dual USB wall charger  
   The power draw of the display is about 350 mA.
-* 4 square head female-to-female dupont cables
+* 6 square head female-to-female DuPont cables
 * 1 4x1 male pin-headers
 * Small cable ties
 
