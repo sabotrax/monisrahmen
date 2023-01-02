@@ -10,7 +10,7 @@ image_text = f'E-Mail: {config.email_user}\n\n'
 
 connected = False
 
-for i in range(5):
+for i in range(11):
     try:
         req = requests.get("https://google.com", timeout=5)
         connected = True
@@ -35,4 +35,4 @@ font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
 img = Image.new('RGB', (width, height), color='black')
 imgDraw = ImageDraw.Draw(img)
 imgDraw.text((10, 10), image_text, font=font, fill=(119, 136, 153))
-img.save(config.project_path + '/sitebin/splash.png')
+img.save(config.project_path + '/site_data/splash.png')
