@@ -1,6 +1,6 @@
 ## Assembly instructions
 
-### Step 1
+### Overview
 
 Parts of the mounting frame:
 * The base plate for the sensor board in the top left.
@@ -10,6 +10,8 @@ Parts of the mounting frame:
 * Two strain reliefs in the upper right and bottom mid.
 
 <img src="assembly-1.jpg" width="400">
+
+### Step 1
 
 Push 8 M2.5 screws through the mounting holes from the bottom side up.
 
@@ -101,7 +103,7 @@ Put the frame over the display passing the FPC table up through the frame.
 
 <img src="assembly-8-2.jpg" width="400">
 
-The outcome should look like this:
+Connect the FPC cable to the HDMI board.
 
 <img src="assembly-8-3.jpg" width="400">
 
@@ -124,3 +126,5 @@ Sand down the skewed part of the frame stand so it can fit in the mounting slot.
 The outcome should look like this:
 
 <img src="assembly-10-2.jpg" width="400">
+
+You can now go on with the software installation.
