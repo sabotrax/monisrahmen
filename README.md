@@ -37,6 +37,11 @@ Some light soldering is required.
 * Soldering equipment
 * Hot glue gun
 
+### 3D printing
+
+The STL files are located in ``site_documents/designs/``.  
+They have been printed in PETG with 15 % infill and supports, but PLA will also work.
+
 ### Hardware setup
 
 * See [ASSEMBLY](site_documents/ASSEMBLY.md).
