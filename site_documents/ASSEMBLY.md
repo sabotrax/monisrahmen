@@ -37,7 +37,7 @@ The sensor's antenna is facing away from you.
 
 ### Step 4
 
-Connect the boards (board pins, not BCM) using 6 DuPont cables.
+Connect the boards (board pin numbering, not BCM) using 6 DuPont cables.
 * Pi to radar sensor board  
   2 - VIN  
   6 - GND  
@@ -49,10 +49,77 @@ Connect the boards (board pins, not BCM) using 6 DuPont cables.
 
 <img src="assembly-4.jpg" width="400">
 
-Mount the Pi and sensor board onto the standoffs and secure them down with 8 M2.5 nuts.
+Mount the Pi and sensor board onto the standoffs and tighten them down with 8 M2.5 nuts.
 
 <img src="assembly-4-2.jpg" width="400">
 
 The outcome should look like this:
 
 <img src="assembly-4-3.jpg" width="400">
+
+### Step 5
+
+Place the sensor board onto the tiny standoffs of the frame using the two central mounting holes.  
+Tie the board to the base plate using a cable tie. There's a gap for the tie in the underside of the frame.
+
+<img src="assembly-5.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-5-2.jpg" width="400">
+
+### Step 6
+
+Connect the HDMI ports of the Raspberry Pi and the daughter board of the display with the HDMI cable.
+
+<img src="assembly-6.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-6-2.jpg" width="400">
+
+### Step 7
+
+Connect a USB-A port of the Raspberry Pi with the USB-C port port of the HDMI board with the USB cable.  
+Secure it to the frame using the strain relief. You might want to use a shorter cable than I did.
+
+<img src="assembly-7.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-7-2.jpg" width="400">
+
+### Step 8
+
+Connect the HDMI-FPC cable to the display with the lettering up towards you.  
+These cable are susceptible to breaking, so you might want to consider a tutorial on Youtube.
+
+<img src="assembly-8.jpg" width="400">
+
+Put the frame over the display passing the FPC table up through the frame.
+
+<img src="assembly-8-2.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-8-3.jpg" width="400">
+
+### Step 9
+
+Connect the Micro-USB to the Raspberry Pi and secure it to the frame using a cable tie with the strain relief.
+
+<img src="assembly-9.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-9-2.jpg" width="400">
+
+### Step 10
+
+Sand down the skewed part of the frame stand so it fits into the mounting slot.
+
+<img src="assembly-10.jpg" width="400">
+
+The outcome should look like this:
+
+<img src="assembly-10-2.jpg" width="400">
