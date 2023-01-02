@@ -164,6 +164,8 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 * Set up Cron.  
     For your user ``crontab -e``
     ```
+    INST_DIR=/home/schommer/monisrahmen
+    VENV_PYTHON=/home/schommer/monisrahmen/bin/python3
     @reboot                $VENV_PYTHON $INST_DIR/blank_screen.py
     0,15,30,45 * * * *     $VENV_PYTHON $INST_DIR/get_pics_by_mail.py
     @midnight              $VENV_PYTHON $INST_DIR/sync_db_to_fs.py
@@ -171,11 +173,12 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 
     For root ``sudo crontab -e``
     ```
+    INST_DIR=/home/schommer/monisrahmen
     @reboot                $INST_DIR/sitebin/startup.sh > /dev/null 2>&1
     2,17,32,47 * * * *     $INST_DIR/sitebin/restart_fbi.sh > /dev/null 2>&1
     ```
 
-    Adjust paths according to your installation directory.  
+    Adjust INST_DIR according to your installation directory.  
     Notice that fbi is being restarted shortly after emails have been checked.
 
 ## License
