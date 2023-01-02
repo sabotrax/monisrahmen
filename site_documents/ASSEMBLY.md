@@ -13,9 +13,10 @@ Parts of the mounting frame:
 
 Push 8 M2.5 screws through the mounting holes from the bottom side up.
 
+<img src="assembly-1-3.jpg" width="400">
+
 The outcome should look like this:
 
-<img src="assembly-1-3.jpg" width="400">
 <img src="assembly-1-2.jpg" width="400">
 
 ### Step 2
@@ -31,7 +32,7 @@ The outcome should look like this:
 ### Step 3
 
 Solder the 4x1 pin-header to the back side of the sensor board.  
-The sensor's actual antenna is facing away down.
+The sensor's actual antenna is facing down.
 
 <img src="assembly-3.jpg" width="400">
 
