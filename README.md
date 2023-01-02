@@ -2,7 +2,7 @@
 
 A digital picture frame you can send emails to.
 
-<img src="site_documents/assembled.jpg" width="400">
+<img src="site_documents/pictures/assembled.jpg" width="400">
 
 ## Description
 
