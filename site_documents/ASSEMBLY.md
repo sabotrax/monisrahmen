@@ -83,7 +83,7 @@ The outcome should look like this:
 
 ### Step 7
 
-Connect a USB-A port of the Raspberry Pi with the USB-C port of the HDMI board with the USB cable.  
+Using the USB cable, connect the USB-C port of the HDMI board to a USB-A port of the Raspberry Pi.
 Secure it to the frame using the strain relief. You might want to use a shorter cable than I did.
 
 <img src="assembly-7.jpg" width="400">
