@@ -172,6 +172,10 @@ Some light soldering is required.
     Adjust paths according to your installation directory.  
     Notice that fbi is being restarted shortly after emails have been checked.
 
+## License
+
+Distributed under the New BSD License, see LICENSE.txt.
+
 ## Acknowledgments
 
 Inspiration, documentation, code snippets, etc.
