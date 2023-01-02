@@ -109,7 +109,7 @@ Connect the FPC cable to the HDMI board.
 
 ### Step 9
 
-Connect the Micro-USB power cord to the Raspberry Pi and secure it to the frame using a cable tie and the strain relief.
+Connect the Micro-USB power cord to the Raspberry Pi and secure it to the strain relief using a cable tie.
 
 <img src="pictures/assembly-9.jpg" width="400">
 
