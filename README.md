@@ -164,15 +164,15 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 * Set up Cron.  
     For your user ``crontab -e``
     ```
-    @reboot                /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/blank_screen.py
-    0,15,30,45 * * * *     /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/get_pics_by_mail.py
-    @midnight		   /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/sync_db_to_fs.py
+    @reboot                $VENV_PYTHON $INST_DIR/blank_screen.py
+    0,15,30,45 * * * *     $VENV_PYTHON $INST_DIR/get_pics_by_mail.py
+    @midnight              $VENV_PYTHON $INST_DIR/sync_db_to_fs.py
     ```
 
     For root ``sudo crontab -e``
     ```
-    @reboot                /home/schommer/monisrahmen/sitebin/startup.sh
-    2,17,32,47 * * * *     /home/schommer/monisrahmen/sitebin/restart_fbi.sh
+    @reboot                $INST_DIR/sitebin/startup.sh > /dev/null 2>&1
+    2,17,32,47 * * * *     $INST_DIR/sitebin/restart_fbi.sh > /dev/null 2>&1
     ```
 
     Adjust paths according to your installation directory.  
