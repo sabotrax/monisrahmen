@@ -21,7 +21,7 @@ Some light soldering is required.
 * 1 USB WLAN adapter like Edimax or TP-Link brand
 * 1 WaveShare model 7" IPS/QLED Integrated Display, 1024x600, 70H-1024600
 * 1 RCWL-0516 doppler radar microwave motion sensor module
-* 1 HDMI cable, short and flexible
+* 1 HDMI cable of 30 cm length
 * 8 M2.5 screws, nuts and standoffs  
   Plastic is fine.
 * 1 USB-A to Micro USB-B cable
@@ -166,6 +166,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     ```
     @reboot                /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/blank_screen.py
     0,15,30,45 * * * *     /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/get_pics_by_mail.py
+    @midnight		   /home/schommer/monisrahmen/bin/python3 /home/schommer/monisrahmen/sync_db_to_fs.py
     ```
 
     For root ``sudo crontab -e``
