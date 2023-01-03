@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import config
 import email
 import hashlib
 import imaplib
@@ -8,23 +7,26 @@ import os
 import random
 import re
 import string
+from decouple import config
 from email.header import decode_header
 from PIL import Image
 from time import time
 from tinydb import TinyDB, Query
 
-db = TinyDB(config.project_path + '/user_data/db.json')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-imap = imaplib.IMAP4_SSL(config.email_host, config.email_port)
-imap.login(config.email_user, config.email_pass)
+db = TinyDB(config('PROJECT_PATH') + '/user_data/db.json')
 
-imap.select(config.email_inbox)
+imap = imaplib.IMAP4_SSL(config('EMAIL_HOST'), config('EMAIL_PORT', default=993, cast=int))
+imap.login(config('EMAIL_USER'), config('EMAIL_PASS'))
+
+imap.select(config('EMAIL_INBOX'))
 type, data = imap.search(None, 'ALL')
-print("FETCH: ", type)
+if DEBUG:
+    print("FETCH: ", type)
 mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
-
 
 # rotate image
 # currently unused
@@ -55,10 +57,13 @@ for num in id_list:
     if isinstance(email_subject, bytes):
         # if it's a bytes, decode to str
         email_subject = email_subject.decode(encoding)
-    print("Subject:", email_subject)
+    if DEBUG:
+        print("Subject:", email_subject)
     # check the email subject for the keyword
-    if not re.search(rf'{config.email_keyword}', email_subject, re.IGNORECASE):
-        print("skip!")
+    email_keyword = config('EMAIL_KEYWORD')
+    if not re.search(rf'{email_keyword}', email_subject, re.IGNORECASE):
+        if DEBUG:
+            print("skip!")
         i += 1
         continue
 
@@ -66,7 +71,8 @@ for num in id_list:
     email_sender, encoding = decode_header(msg.get("From"))[0]
     if isinstance(email_sender, bytes):
         email_sender = email_sender.decode(encoding)
-    print("From:", email_sender)
+    if DEBUG:
+        print("From:", email_sender)
 
     # converts byte literal to string removing b''
     raw_email = data[0][1]
@@ -86,52 +92,61 @@ for num in id_list:
             hashed_raw = hashlib.sha1()
             hashed_raw.update(raw)
             hd = hashed_raw.hexdigest()
-            print("digest: ", hd)
+            if DEBUG:
+                print("digest: ", hd)
 
             # look up checksum
             picture = Query()
             duplicate = db.search(picture.checksum == hd)
             # skip duplicates
             if duplicate:
-                print("duplicate -> skip!")
+                if DEBUG:
+                    print("duplicate -> skip!")
                 i += 1
                 continue
             else:
-                print("unique copy")
+                if DEBUG:
+                    print("unique copy")
 
             # create unique file name
             letters = string.ascii_lowercase
             rnd_str = ''.join(random.choice(letters) for i in range(7))
             fileName = f'{rnd_str}-{fileName}'
-            print("new file name: ", fileName)
+            if DEBUG:
+                print("new file name: ", fileName)
             # skip if the file exists
             # if not os.path.isfile(filePath):
 
-            filePath = os.path.join(config.picture_path, fileName)
+            picture_path = config('PROJECT_PATH') + '/pictures'
+            filePath = os.path.join(picture_path, fileName)
             fp = open(filePath, 'wb')
             fp.write(part.get_payload(decode=True))
             fp.close()
-            print("attachment: ", filePath)
+            if DEBUG:
+                print("attachment: ", filePath)
             try:
                 # verify image
                 img = Image.open(filePath)
                 img.verify()
                 img.close()
-                print("image verified")
+                if DEBUG:
+                    print("image verified")
 
                 # write properties to db
                 db.insert({'filename': fileName, 'sender': email_sender,
                            'date': int(time()), 'checksum': hd})
 
             except Exception as e:
-                print(e)
+                if DEBUG:
+                    print(e)
                 os.remove(filePath)
                 i += 1
                 continue
 
     i += 1
-    if config.delete_email:
-        print("deleted email: ", num)
+    if config('DELETE_EMAIL', default=False, cast=bool):
+        if DEBUG:
+            print("deleted email: ", num)
         imap.store(num, "+FLAGS", "\\Deleted")
 
 imap.expunge()
