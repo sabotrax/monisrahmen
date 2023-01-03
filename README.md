@@ -26,7 +26,7 @@ Some light soldering is required.
   Plastic is fine.
 * 1 USB-A to Micro USB-B cable
 * 1 USB-A to USB-C cable
-* 1 Dual USB wall charger  
+* 1 USB wall charger  
   The power draw of the display is about 350 mA.
 * 6 square head female-to-female DuPont cables
 * 1 4x1 male pin-headers
@@ -160,6 +160,10 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 * Edit the shell scripts.  
     Change the installation directories in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
     The image reload interval can also be configured in ``sitebin/restart_fbi.sh``.
+
+    Test the mail retrieval by sending an image to the configured email address with the  
+    subject "foto" by executing ``./get_pics_by_mail.py``.  
+    There should be a new file ``ls pictures/``.
 
 * Set up Cron.  
     For your user ``crontab -e``
