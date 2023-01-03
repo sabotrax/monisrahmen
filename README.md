@@ -54,7 +54,12 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 
 * Install dependencies:
     ```
-    sudo apt-get install fonts-dejavu-core git python3 python3-pip python3-venv samba
+    sudo apt-get install fbi fonts-dejavu-core git python3 python3-pip python3-venv samba
+    ```
+
+    If using DietPi instead of Pi OS add:
+    ```
+    sudo apt-get install libopenjp2-7 libxcb1
     ```
 
 * Download the software:
