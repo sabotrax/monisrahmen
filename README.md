@@ -166,9 +166,9 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     Change the installation directories in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
     The image reload interval can also be configured in ``sitebin/restart_fbi.sh``.
 
-    Test the mail retrieval by sending an image to the configured email address with the  
-    subject "foto" by executing ``./get_pics_by_mail.py``.  
-    There should be a new file ``ls pictures/``.
+    Test the mail retrieval by first sending an image to the configured email address with  
+    the subject "foto" and then executing ``./get_pics_by_mail``.
+    There should be a new file in the pictures directory.
 
 * Set up Cron.  
     For your user ``crontab -e``
