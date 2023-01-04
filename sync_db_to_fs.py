@@ -11,25 +11,32 @@
 # this script should be run by your user's crontab
 # see README.md
 
-import config
 import os
+from decouple import config
 from tinydb import TinyDB, Query
 
-db = TinyDB(config.project_path + '/user_data/db.json')
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+db = TinyDB(config('PROJECT_PATH') + '/user_data/db.json')
 
 removal_pending = []
 # iterate over db
 for picture in db:
-    # print(picture)
+    if DEBUG:
+        print(picture)
 
     # is the file matching the entry existing?
-    filePath = os.path.join(config.picture_path, picture["filename"])
+    picture_path = config('PROJECT_PATH') + '/pictures'
+    filePath = os.path.join(picture_path, picture["filename"])
     if not os.path.isfile(filePath):
         # if not, mark it for removal
-        # print("file missing: ", picture["filename"])
+        if DEBUG:
+            print("file missing: ", picture["filename"])
         removal_pending.append(picture.doc_id)
 
 # remove dangling db entries
 if removal_pending:
-    # print(removal_pending)
+    if DEBUG:
+        print("removal pending")
+        print(removal_pending)
     db.remove(doc_ids=removal_pending)
