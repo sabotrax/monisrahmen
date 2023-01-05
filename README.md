@@ -57,7 +57,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     sudo apt-get install fbi fonts-dejavu-core git python3 python3-pip python3-venv samba
     ```
 
-    If using DietPi instead of Pi OS add:
+    If using DietPi instead of Pi OS add also:
     ```
     sudo apt-get install libopenjp2-7 libxcb1
     ```
@@ -90,8 +90,9 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     EMAIL_KEYWORD=foto
     # delete emails after retrieval
     DELETE_EMAIL=False
-    # blank screen (in seconds)
+    # motion sensor timeout for screen blanking (seconds)
     DISPLAY_TIMEOUT=120
+    # leave empty if not using
     START_MONITORING=
     END_MONITORING=
     # network device
@@ -129,7 +130,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     ```
     This would also only work with the legacy driver.
 
-* Suppress the boot messages.  
+* Suppress boot messages.  
     Append to the end of the line of ``/boot/cmdline.txt``:
     ```
     consoleblank=1 logo.nologo vt.global_cursor_default=0
@@ -154,7 +155,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     guest ok = yes
     ```
 
-    Change directory rights so image files can be deleted from your file manager:
+    Change directory rights so image files can be managed from your file manager:
     ```
     chmod 777 pictures
     ```
