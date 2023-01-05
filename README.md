@@ -76,38 +76,35 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     echo "source ~/monisrahmen/bin/activate" >> ~/.bashrc
     ```
 
-* Create ``config.py``:
+* Create ``.env``:
     ```
-    # email settings
-    email_user = "IMAP_USER"
-    email_pass = "IMAP_PASSWORD"
-    email_host = "IMAP_HOST"
-    email_port = 993
-    email_inbox = 'Inbox'
-
-    # email subject for image processing
-    email_keyword = 'foto'
-
-    # delete emails after retrieval
-    delete_email = False
-
     # installation directory
-    project_path = "/home/schommer/monisrahmen"
-
-    # image directory
-    picture_path = project_path + "/pictures"
-
-    # blank screen after
-    display_timeout = 120  # seconds
-
+    PROJECT_PATH=/home/schommer/monisrahmen
+    # email settings
+    EMAIL_USER=IMAP_USER
+    EMAIL_PASS=IMAP_PASSWORD
+    EMAIL_HOST=IMAP_HOST
+    EMAIL_PORT=993
+    EMAIL_INBOX=Inbox
+    # email subject for image processing
+    EMAIL_KEYWORD=foto
+    # delete emails after retrieval
+    DELETE_EMAIL=False
+    # blank screen (in seconds)
+    DISPLAY_TIMEOUT=120
+    START_MONITORING=
+    END_MONITORING=
+    # network device
+    NETWORK_DEVICE=wlan0
     # network error message
-    network_error = "Kein Netzwerk!"
-
-    screen_width = 1024
-    screen_height = 600
-
+    NETWORK_ERROR="Network error!"
+    # screen resolution
+    SCREEN_WIDTH=1024
+    SCREEN_HEIGHT=600
     # splash image text
-    font_size = 30
+    FONT_SIZE=30
+    # be verbose
+    DEBUG=False
     ```
 
 * Configure the display in ``/boot/config.txt``.  
