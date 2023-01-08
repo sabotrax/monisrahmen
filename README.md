@@ -97,6 +97,8 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     EMAIL_KEYWORD=foto
     # delete emails after retrieval
     DELETE_EMAIL=False
+    # unkown sender
+    UNKNOWN_SENDER=Unknown
     # motion sensor timeout for screen blanking (seconds)
     DISPLAY_TIMEOUT=120
     # leave empty if not using
