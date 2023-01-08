@@ -8,11 +8,18 @@ A digital picture frame you can send emails to.
 
 Send pictures as email attachments.
 They will be downloaded and displayed in a loop.  
-A motion sensor will blank the screen after some inactivity.  
-The image files can be remotely accessed via network share.
 
 The mounting frame is 3D printed.  
 Some light soldering is required.
+
+## Features
+
+* Send one or more pictures as email attachments.
+* Add pictures by putting them on a network share.
+* Duplicate files will be ignored.
+* Screen blanking is controlled by a motion sensor.
+* A splash screen is showing device information.
+* Most options are configurable.
 
 ### Bill of materials
 
@@ -171,7 +178,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     VENV_PYTHON=/home/schommer/monisrahmen/bin/python3
     @reboot                $VENV_PYTHON $INST_DIR/blank_screen.py
     0,15,30,45 * * * *     $VENV_PYTHON $INST_DIR/get_pics_by_mail.py
-    @midnight              $VENV_PYTHON $INST_DIR/sync_db_to_fs.py
+    @midnight              $VENV_PYTHON $INST_DIR/sync_database.py
     ```
 
     For root ``sudo crontab -e``
