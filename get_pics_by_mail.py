@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
 import email
-import hashlib
 import imaplib
+import io
 import os
 import random
 import re
 import string
 from decouple import config
 from email.header import decode_header
+from helper import get_hash
 from PIL import Image
 from time import time
 from tinydb import TinyDB, Query
@@ -27,6 +28,10 @@ if DEBUG:
 mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
+
+class DuplicateImageExeption(Exception):
+    "Raised when an image is already existing"
+    pass
 
 # rotate image
 # currently unused
@@ -87,26 +92,7 @@ for num in id_list:
             continue
         fileName = part.get_filename()
         if bool(fileName):
-            # create image checksum
             raw = part.get_payload(decode=True)
-            hashed_raw = hashlib.sha1()
-            hashed_raw.update(raw)
-            hd = hashed_raw.hexdigest()
-            if DEBUG:
-                print("digest: ", hd)
-
-            # look up checksum
-            picture = Query()
-            duplicate = db.search(picture.checksum == hd)
-            # skip duplicates
-            if duplicate:
-                if DEBUG:
-                    print("duplicate -> skip!")
-                i += 1
-                continue
-            else:
-                if DEBUG:
-                    print("unique copy")
 
             # create unique file name
             letters = string.ascii_lowercase
@@ -114,9 +100,8 @@ for num in id_list:
             fileName = f'{rnd_str}-{fileName}'
             if DEBUG:
                 print("new file name: ", fileName)
-            # skip if the file exists
-            # if not os.path.isfile(filePath):
 
+            # save file (for now)
             picture_path = config('PROJECT_PATH') + '/pictures'
             filePath = os.path.join(picture_path, fileName)
             fp = open(filePath, 'wb')
@@ -124,6 +109,7 @@ for num in id_list:
             fp.close()
             if DEBUG:
                 print("attachment: ", filePath)
+
             try:
                 # verify image
                 img = Image.open(filePath)
@@ -131,6 +117,23 @@ for num in id_list:
                 img.close()
                 if DEBUG:
                     print("image verified")
+
+                # create image checksum
+                hd = get_hash(filePath)
+                if DEBUG:
+                    print("hexdigest: ", hd)
+
+                # look up checksum
+                picture = Query()
+                duplicate = db.search(picture.checksum == hd)
+                # skip duplicates
+                if duplicate:
+                    if DEBUG:
+                        print("duplicate -> skip!")
+                    raise DuplicateImageExeption
+                else:
+                    if DEBUG:
+                        print("unique copy -> kept")
 
                 # write properties to db
                 db.insert({'filename': fileName, 'sender': email_sender,
