@@ -15,7 +15,7 @@ Some light soldering is required.
 ## Features
 
 * Send one or more pictures as email attachments.
-* Add pictures by putting them on a network share.
+* Add more pictures by putting them on a network share.
 * Duplicate files will be ignored.
 * Screen blanking is controlled by a motion sensor.
 * A splash screen is showing device information.
@@ -24,7 +24,7 @@ Some light soldering is required.
 ### Bill of materials
 
 * 1 Raspberry Pi 2  
-  The old model 2 is sufficient for this project and can be found for relatively cheap in late 2022.
+  The Raspberry 2 is sufficient for this project and can be found for relatively cheap in late 2022.
 * 1 USB WLAN adapter like Edimax or TP-Link brand
 * 1 WaveShare model 7" IPS/QLED Integrated Display, 1024x600, 70H-1024600
 * 1 RCWL-0516 doppler radar microwave motion sensor module
@@ -83,7 +83,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     echo "source ~/monisrahmen/bin/activate" >> ~/.bashrc
     ```
 
-* Create ``.env``:
+* Create ``.env`` as the configuration file:
     ```
     # installation directory
     PROJECT_PATH=/home/schommer/monisrahmen
@@ -108,11 +108,11 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     NETWORK_DEVICE=wlan0
     # network error message
     NETWORK_ERROR="Network error!"
+    # splash image font
+    FONT_SIZE=30
     # screen resolution
     SCREEN_WIDTH=1024
     SCREEN_HEIGHT=600
-    # splash image text
-    FONT_SIZE=30
     # be verbose
     DEBUG=False
     ```
@@ -180,7 +180,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     VENV_PYTHON=/home/schommer/monisrahmen/bin/python3
     @reboot                $VENV_PYTHON $INST_DIR/blank_screen.py
     0,15,30,45 * * * *     $VENV_PYTHON $INST_DIR/get_pics_by_mail.py
-    @midnight              $VENV_PYTHON $INST_DIR/sync_database.py
+    @hourly                $VENV_PYTHON $INST_DIR/sync_database.py
     ```
 
     For root ``sudo crontab -e``
@@ -202,6 +202,7 @@ Distributed under the New BSD License, see LICENSE.txt.
 Inspiration, documentation, code snippets, etc.
 * [Building a living photo frame](https://www.ofbrooklyn.com/2014/01/2/building-photo-frame-raspberry-pi-motion-detector/)
 * Waveshare display [Wiki](https://www.waveshare.com/wiki/70H-1024600) 
+* [RCWL-0516](https://wolles-elektronikkiste.de/en/rcwl-0516-microwave-radar-motion-detector) microwave radar motion detector
 * Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
 * Crontab configuration ``man 5 crontab``
 * Samba configuration ``man 5 smb.conf``
