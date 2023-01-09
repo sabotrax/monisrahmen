@@ -13,5 +13,4 @@ pyvenv.cfg
 .env
 pip-selfcheck.json
 db.json
-config.py
 splash.png
