@@ -28,6 +28,7 @@ GPIO.output(27, GPIO.HIGH)
 GPIO.setup(18, GPIO.OUT)
 dim = GPIO.PWM(18, 1000)
 
+
 @atexit.register
 def goodbye():
     GPIO.cleanup()
@@ -59,7 +60,8 @@ def is_monitoring():
     monitor = False
 
     try:
-        from_hour, from_minute = config('START_MONITORING', default="").split(":")
+        from_hour, from_minute = config('START_MONITORING',
+                                        default="").split(":")
         to_hour, to_minute = config('END_MONITORING', default="").split(":")
     except ValueError:
         return monitor
@@ -117,10 +119,12 @@ if __name__ == "__main__":
     blanked = False
     active = idle = time()
     send_alert = False
+    i = 0
     while True:
         if motion_detect():
             if DEBUG:
                 print("motion detected")
+            i = 0
             active = time()
             if blanked:
                 subprocess.run(["/usr/bin/vcgencmd", "display_power",
@@ -135,9 +139,11 @@ if __name__ == "__main__":
                     #send_alert = True
         else:
             if DEBUG:
-                print("not much")
+                print(f"wait for it: {i}/{config('DISPLAY_TIMEOUT')}")
+                i += 1
             idle = time()
-            if not blanked and (idle - active > config('DISPLAY_TIMEOUT', cast=int)):
+            if not blanked and (idle - active > config('DISPLAY_TIMEOUT',
+                                                       cast=int)):
                 if DEBUG:
                     print("blank now")
                 dim_display("off")
