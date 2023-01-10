@@ -35,30 +35,17 @@ class DuplicateImageExeption(Exception):
     pass
 
 
-# rotate image
-# currently unused
-def process_image(filePath):
-    # rotate image because of the
-    # portrait orientation of the frame
-    # open twice because of verify()
-    img = Image.open(filePath)
-    img.load()
-    size = img.size
-    img_x, img_y = size[0], size[1]
-    print(f'size: {img_x}x{img_y}')
-    rotated_img = img.transpose(Image.Transpose.ROTATE_90)
-    rotated_img.save(filePath)
-    img.close()
-    print("image rotated")
-
-
-i = 0
-for num in id_list:
-    if i >= 10:
+for i, id in enumerate(id_list):
+    if DEBUG:
+        print("counter: ", i)
+    if i == config('FETCH_EMAIL', cast=int):
+        if DEBUG:
+            print("bye!")
         break
-    typ, data = imap.fetch(num, '(RFC822)')
 
+    typ, data = imap.fetch(id, '(RFC822)')
     msg = email.message_from_bytes(data[0][1])
+
     # decode the email subject
     email_subject, encoding = decode_header(msg["Subject"])[0]
     if isinstance(email_subject, bytes):
@@ -71,7 +58,6 @@ for num in id_list:
     if not re.search(rf'{email_keyword}', email_subject, re.IGNORECASE):
         if DEBUG:
             print("skip!")
-        i += 1
         continue
 
     # decode email sender
@@ -137,7 +123,7 @@ for num in id_list:
                     if DEBUG:
                         print("unique copy -> kept")
 
-                # write properties to db
+                # write image properties to db
                 db.insert({'filename': fileName, 'sender': email_sender,
                            'date': int(time()), 'checksum': hd})
 
@@ -145,14 +131,12 @@ for num in id_list:
                 if DEBUG:
                     print(e)
                 os.remove(filePath)
-                i += 1
                 continue
 
-    i += 1
     if config('DELETE_EMAIL', default=False, cast=bool):
         if DEBUG:
-            print("deleted email: ", num)
-        imap.store(num, "+FLAGS", "\\Deleted")
+            print("deleted email: ", id)
+        imap.store(id, "+FLAGS", "\\Deleted")
 
 imap.expunge()
 imap.close()
