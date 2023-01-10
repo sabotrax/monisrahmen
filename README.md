@@ -87,12 +87,14 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     ```
     # installation directory
     PROJECT_PATH=/home/schommer/monisrahmen
-    # email settings
+    # email account settings
     EMAIL_USER=IMAP_USER
     EMAIL_PASS=IMAP_PASSWORD
     EMAIL_HOST=IMAP_HOST
     EMAIL_PORT=993
     EMAIL_INBOX=Inbox
+    # number of emails to fetch
+    FETCH_EMAIL=5
     # email subject for image processing
     EMAIL_KEYWORD=foto
     # delete emails after retrieval
