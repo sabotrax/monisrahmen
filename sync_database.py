@@ -13,10 +13,10 @@
 
 import os
 from decouple import config
-from helper import get_hash, validate_picture, DuplicateImageExeption, subtract_arrays
-from PIL import Image, UnidentifiedImageError
+from helper import validate_picture, DuplicateImageExeption, subtract_arrays
+from PIL import UnidentifiedImageError
 from time import time
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -74,7 +74,7 @@ for fileName in fs_files:
 
         # write properties to db
         db.insert({'filename': fileName, 'sender': config('UNKNOWN_SENDER'),
-            'date': now, 'checksum': hd})
+                    'date': now, 'checksum': hd})
     except DuplicateImageExeption:
         if DEBUG:
             print("duplicate --> skip!")
