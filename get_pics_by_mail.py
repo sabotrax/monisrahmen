@@ -2,7 +2,6 @@
 
 import email
 import imaplib
-import io
 import os
 import random
 import re
@@ -18,7 +17,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 db = TinyDB(config('PROJECT_PATH') + '/user_data/db.json')
 
-imap = imaplib.IMAP4_SSL(config('EMAIL_HOST'), config('EMAIL_PORT', default=993, cast=int))
+imap = imaplib.IMAP4_SSL(config('EMAIL_HOST'), config('EMAIL_PORT',
+                                                      default=993, cast=int))
 imap.login(config('EMAIL_USER'), config('EMAIL_PASS'))
 
 imap.select(config('EMAIL_INBOX'))
@@ -29,9 +29,11 @@ mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
 
+
 class DuplicateImageExeption(Exception):
     "Raised when an image is already existing"
     pass
+
 
 # rotate image
 # currently unused
@@ -61,7 +63,7 @@ for num in id_list:
     email_subject, encoding = decode_header(msg["Subject"])[0]
     if isinstance(email_subject, bytes):
         # if it's a bytes, decode to str
-        email_subject = email_subject.decode(encoding)
+        email_subject = email_subject.decode(encoding or 'utf8')
     if DEBUG:
         print("Subject:", email_subject)
     # check the email subject for the keyword
