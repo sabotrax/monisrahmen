@@ -7,9 +7,11 @@ pkill -f /usr/bin/fbi
 shopt -s globstar
 # change accordingly to your installation directory
 cd /home/schommer/monisrahmen/pictures
+# remove trigger file
+[ -e ../site_run/image_added ] && rm ../site_run/image_added
 # add file types here
-files=(**/*.jpg **/*.png)
+files=(**/*.gif **/*.jpg **/*.png)
 #
 # -t seconds - reload interval
 # --blend milliseconds - blend time
-/usr/bin/fbi -T 1 -a -t 30 -u --noverbose --blend 500 "${files[@]}"
+/usr/bin/fbi -T 1 -a -t 120 -u --noverbose --blend 500 "${files[@]}"

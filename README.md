@@ -61,7 +61,7 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 
 * Install dependencies:
     ```
-    sudo apt-get install fbi fonts-dejavu-core git python3 python3-pip python3-venv samba
+    sudo apt-get install fbi fonts-dejavu-core git incron python3 python3-pip python3-venv samba
     ```
 
     If using DietPi instead of Pi OS add also:
@@ -189,11 +189,23 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     ```
     INST_DIR=/home/schommer/monisrahmen
     @reboot                $INST_DIR/sitebin/startup.sh > /dev/null 2>&1
-    2,17,32,47 * * * *     $INST_DIR/sitebin/restart_fbi.sh > /dev/null 2>&1
     ```
 
     Adjust INST_DIR according to your installation directory.  
-    Notice that fbi is being restarted shortly after emails have been checked.
+
+* Set up incron.
+    Add root to ``/etc/incron.allow``
+    ```
+    echo root > /etc/incron.allow
+    ```
+
+    For root ``sudo incrontab -e``
+    ```
+    /home/schommer/monisrahmen/site_run     IN_CREATE       /home/schommer/monisrahmen/sitebin/restart_fbi.sh
+    ```
+
+    Adjust the directories in the incrontab file accordingly.  
+    fbi is restarted by incron after a new image attachment has been downloaded and processed.
 
 ## License
 
@@ -207,5 +219,6 @@ Inspiration, documentation, code snippets, etc.
 * [RCWL-0516](https://wolles-elektronikkiste.de/en/rcwl-0516-microwave-radar-motion-detector) microwave radar motion detector
 * Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
 * Crontab configuration ``man 5 crontab``
+* incrontab configuraiton ``man 5 incrontab``
 * Samba configuration ``man 5 smb.conf``
 * fbi - Linux framebuffer image viewer ``man fbi``

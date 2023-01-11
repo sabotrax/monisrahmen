@@ -9,6 +9,7 @@ import string
 from decouple import config
 from email.header import decode_header
 from helper import get_hash
+from pathlib import Path
 from PIL import Image
 from time import time
 from tinydb import TinyDB, Query
@@ -28,6 +29,7 @@ if DEBUG:
 mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
+image_added = False
 
 
 class DuplicateImageExeption(Exception):
@@ -127,6 +129,8 @@ for i, id in enumerate(id_list):
                 db.insert({'filename': fileName, 'sender': email_sender,
                            'date': int(time()), 'checksum': hd})
 
+                image_added = True
+
             except Exception as e:
                 if DEBUG:
                     print(e)
@@ -137,6 +141,10 @@ for i, id in enumerate(id_list):
         if DEBUG:
             print("deleted email: ", id)
         imap.store(id, "+FLAGS", "\\Deleted")
+
+# trigger fbi restart
+if image_added:
+    Path(config('PROJECT_PATH') + '/site_run/image_added').touch(exist_ok=True)
 
 imap.expunge()
 imap.close()
