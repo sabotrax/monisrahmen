@@ -139,8 +139,11 @@ if __name__ == "__main__":
                     #send_alert = True
         else:
             if DEBUG:
-                print(f"wait for it: {i}/{config('DISPLAY_TIMEOUT')}")
-                i += 1
+                if blanked:
+                    print("blanked")
+                else:
+                    print(f"wait for it: {i}/{config('DISPLAY_TIMEOUT')}")
+                    i += 1
             idle = time()
             if not blanked and (idle - active > config('DISPLAY_TIMEOUT',
                                                        cast=int)):
