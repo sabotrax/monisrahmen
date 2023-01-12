@@ -16,7 +16,7 @@ Some light soldering is required.
 
 * Send one or more pictures as email attachments.
 * Add more pictures by putting them on a network share.
-* Duplicate files will be ignored.
+* Duplicate files and non-image formats will be ignored.
 * Screen blanking is controlled by a motion sensor.
 * A splash screen is showing device information.
 * Most options are configurable.
@@ -93,14 +93,18 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     EMAIL_HOST=IMAP_HOST
     EMAIL_PORT=993
     EMAIL_INBOX=Inbox
-    # number of emails to fetch
-    FETCH_EMAIL=5
     # email subject for image processing
     EMAIL_KEYWORD=foto
+    # number of emails to fetch
+    FETCH_EMAIL=5
     # delete emails after retrieval
     DELETE_EMAIL=False
     # unkown sender
     UNKNOWN_SENDER=Unknown
+    # image reload time (seconds)
+    RELOAD_IMAGE=120
+    # image transition time (milliseconds)
+    BLEND_IMAGE=500
     # motion sensor timeout for screen blanking (seconds)
     DISPLAY_TIMEOUT=120
     # leave empty if not using
