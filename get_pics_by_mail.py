@@ -8,11 +8,11 @@ import re
 import string
 from decouple import config
 from email.header import decode_header
-from helper import get_hash
+from helper import validate_picture, DuplicateImageExeption
 from pathlib import Path
-from PIL import Image
+from PIL import UnidentifiedImageError
 from time import time
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -30,12 +30,6 @@ mail_ids = data[0]
 id_list = mail_ids.split()
 id_list.reverse()
 image_added = False
-
-
-class DuplicateImageExeption(Exception):
-    "Raised when an image is already existing"
-    pass
-
 
 for i, id in enumerate(id_list):
     if DEBUG:
@@ -101,29 +95,8 @@ for i, id in enumerate(id_list):
                 print("attachment: ", filePath)
 
             try:
-                # verify image
-                img = Image.open(filePath)
-                img.verify()
-                img.close()
-                if DEBUG:
-                    print("image verified")
-
-                # create image checksum
-                hd = get_hash(filePath)
-                if DEBUG:
-                    print("hexdigest: ", hd)
-
-                # look up checksum
-                picture = Query()
-                duplicate = db.search(picture.checksum == hd)
-                # skip duplicates
-                if duplicate:
-                    if DEBUG:
-                        print("duplicate -> skip!")
-                    raise DuplicateImageExeption
-                else:
-                    if DEBUG:
-                        print("unique copy -> kept")
+                # verify picture and check for duplicate
+                hd = validate_picture(filePath)
 
                 # write image properties to db
                 db.insert({'filename': fileName, 'sender': email_sender,
@@ -131,11 +104,16 @@ for i, id in enumerate(id_list):
 
                 image_added = True
 
-            except Exception as e:
+            except DuplicateImageExeption:
                 if DEBUG:
-                    print(e)
+                    print("duplicate --> skip!")
                 os.remove(filePath)
-                continue
+                pass
+            except UnidentifiedImageError:
+                if DEBUG:
+                    print("unkown file: ", fileName)
+                os.remove(filePath)
+                pass
 
     if config('DELETE_EMAIL', default=False, cast=bool):
         if DEBUG:
