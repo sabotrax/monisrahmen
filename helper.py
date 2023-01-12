@@ -1,4 +1,5 @@
 import hashlib
+import os
 from decouple import config
 from PIL import Image, UnidentifiedImageError
 from tinydb import TinyDB, Query
@@ -10,6 +11,11 @@ db = TinyDB(config('PROJECT_PATH') + '/user_data/db.json')
 class DuplicateImageExeption(Exception):
     "Raised when an image is already existing"
     pass
+
+
+# courtesy of ChatGPT
+def count_files(directory):
+    return len([f for f in os.listdir(directory) if not f.startswith('.')])
 
 
 def get_hash(img_path):

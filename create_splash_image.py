@@ -4,14 +4,19 @@ import netifaces as ni
 import requests
 import time
 from decouple import config
+from helper import count_files
 from PIL import Image, ImageDraw, ImageFont
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-image_text = f"E-Mail: {config('EMAIL_USER')}\n\n"
+image_text = f"E-Mail: {config('EMAIL_USER')}\n"
+image_counter = count_files(config('PROJECT_PATH') + '/pictures')
+if image_counter > 0:
+    image_text += f"Bilder: {image_counter}\n\n"
+else:
+    image_text += "\n"
 
 connected = False
-
 for i in range(11):
     try:
         req = requests.get("https://google.com", timeout=5)
