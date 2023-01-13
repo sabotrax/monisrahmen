@@ -18,6 +18,7 @@ Some light soldering is required.
 * Add more pictures by putting them on a network share.
 * Duplicate files and non-image formats will be ignored.
 * Screen blanking is controlled by a motion sensor.
+* Off-hours can be enabled, so the screen stays off after blanking.
 * A splash screen is showing device information.
 * Most options are configurable.
 
@@ -34,7 +35,7 @@ Some light soldering is required.
 * 1 USB-A to Micro USB-B cable
 * 1 USB-A to USB-C cable
 * 1 USB wall charger  
-  The power draw of the display is about 350 mA.
+  The power draw of the display is about 350 mA. 100 mA when blanked.
 * 6 square head female-to-female DuPont cables
 * 1 4x1 male pin-headers
 * Small cable ties
@@ -107,6 +108,12 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
     BLEND_IMAGE=500
     # motion sensor timeout for screen blanking (seconds)
     DISPLAY_TIMEOUT=120
+    # display off-hours
+    # the screen stays off after blanking during this period
+    # leave empty if not using
+    START_DISPLAY_OFF=23:00
+    END_DISPLAY_OFF=07:00
+    # monitoring is not implemented yet
     # leave empty if not using
     START_MONITORING=
     END_MONITORING=

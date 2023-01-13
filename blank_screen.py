@@ -11,6 +11,7 @@ import subprocess
 from datetime import datetime
 from decouple import config
 from email.message import EmailMessage
+from helper import in_between_days
 from time import sleep, time
 
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -56,50 +57,6 @@ def dim_display(mode):
         sleep(0.5)
 
 
-def is_monitoring():
-    monitor = False
-
-    try:
-        from_hour, from_minute = config('START_MONITORING',
-                                        default="").split(":")
-        to_hour, to_minute = config('END_MONITORING', default="").split(":")
-    except ValueError:
-        return monitor
-
-    try:
-        from_hour = abs(int(from_hour))
-        to_hour = abs(int(to_hour))
-        from_minute = abs(int(from_minute))
-        to_minute = abs(int(to_minute))
-    except Exception as e:
-        print(e)
-        return monitor
-
-    now = datetime.now()
-    this_hour = now.hour
-    this_minute = now.minute
-    print(f'now: {this_hour}:{this_minute}')
-
-    if from_hour == 24:
-        from_hour = 0
-    if (from_hour != to_hour) and to_minute == 0:
-        to_minute = 60
-    if from_hour <= to_hour:
-        if from_hour < this_hour < to_hour:
-            monitor = True
-        elif from_hour == this_hour:
-            if from_minute <= this_minute < to_minute:
-                monitor = True
-    else:
-        if from_hour <= this_hour < 24 or 0 <= this_hour < to_hour:
-            monitor = True
-        elif from_hour == this_hour:
-            if from_minute <= this_minute < to_minute:
-                monitor = True
-
-    return monitor
-
-
 def send_mail():
     msg = EmailMessage()
     msg.set_content("The body of the email is here")
@@ -127,16 +84,21 @@ if __name__ == "__main__":
             i = 0
             active = time()
             if blanked:
-                subprocess.run(["/usr/bin/vcgencmd", "display_power",
-                                "1", "2"])
-                dim_display("on")
-                blanked = False
-                #now = datetime.now()
-                #if not send_alert and (start_monitoring <= now <=
-                                       #end_monitoring):
-                    #print("send mail")
-                    #send_mail()
-                    #send_alert = True
+                # only unblank the display when not during off-hours
+                if not in_between_days(config('START_DISPLAY_OFF'),
+                                       config('END_DISPLAY_OFF')):
+                    subprocess.run(["/usr/bin/vcgencmd", "display_power",
+                                    "1", "2"])
+                    dim_display("on")
+                    blanked = False
+                    #now = datetime.now()
+                    #if not send_alert and (start_monitoring <= now <=
+                                        #end_monitoring):
+                        #print("send mail")
+                        #send_mail()
+                        #send_alert = True
+                elif DEBUG:
+                    print("off-hours")
         else:
             if DEBUG:
                 if blanked:
