@@ -48,7 +48,7 @@ Some light soldering is required.
 ### 3D printing
 
 The STL files are located in ``site_documents/designs/``.  
-They have been printed in PETG with 15 % infill and supports, but PLA will also work.
+Frame and stand have been printed in PETG with 15 % infill and supports, but PLA will also work.
 
 ### Hardware setup
 
@@ -184,7 +184,6 @@ They have been printed in PETG with 15 % infill and supports, but PLA will also 
 
 * Edit the shell scripts.  
     Change the installation directories in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
-    The image reload interval can also be configured in ``sitebin/restart_fbi.sh``.
 
 * Set up Cron.  
     For your user ``crontab -e``
