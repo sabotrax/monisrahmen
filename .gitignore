@@ -12,5 +12,3 @@ pyvenv.cfg
 .venv
 .env
 pip-selfcheck.json
-db.json
-splash.png
