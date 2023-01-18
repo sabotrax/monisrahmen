@@ -14,6 +14,7 @@
 import os
 from decouple import config
 from helper import validate_picture, DuplicateImageExeption, subtract_arrays
+from pathlib import Path
 from PIL import UnidentifiedImageError
 from time import time
 from tinydb import TinyDB
@@ -65,6 +66,7 @@ print("fs count:", len(fs_files))
 fs_files = subtract_arrays(db_pictures, fs_files)
 print("rest: ", len(fs_files))
 now = int(time())
+image_added = False
 for fileName in fs_files:
     try:
         picture_path = config('PROJECT_PATH') + '/pictures'
@@ -73,8 +75,10 @@ for fileName in fs_files:
         hd = validate_picture(filePath)
 
         # write properties to db
-        db.insert({'filename': fileName, 'sender': config('UNKNOWN_SENDER'),
-                    'date': now, 'checksum': hd})
+        db.insert({'filename': fileName, 'sender':
+                   config('UNKNOWN_SENDER'), 'date': now, 'checksum': hd})
+
+        image_added = True
     except DuplicateImageExeption:
         if DEBUG:
             print("duplicate --> skip!")
@@ -84,6 +88,10 @@ for fileName in fs_files:
         if DEBUG:
             print("unkown file: ", fileName)
         pass
+
+# trigger fbi restart
+if image_added:
+    Path(config('PROJECT_PATH') + '/site_run/image_added').touch(exist_ok=True)
 
 if DEBUG:
     print("part two done")
