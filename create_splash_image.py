@@ -12,6 +12,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 image_text = f"E-Mail: {config('EMAIL_USER')}\n"
 image_counter = count_files(config('PROJECT_PATH') + '/pictures')
 if image_counter > 0:
+    # change info text of the splash image here
     image_text += f"Bilder: {image_counter}\n\n"
 else:
     image_text += "\n"
@@ -28,7 +29,8 @@ for i in range(11):
 
 if connected:
     ip_address = ni.ifaddresses(config('NETWORK_DEVICE'))[ni.AF_INET][0]['addr']
-    # this path should match with the Samba configuration
+    # change info text of the splash image here
+    # the network path should match with the Samba configuration
     image_text += f'Freigabe: \\\\{ip_address}\\bilder'
 else:
     image_text += config('NETWORK_ERROR')

@@ -48,7 +48,7 @@ if removal_pending:
     db.remove(doc_ids=removal_pending)
 
 if DEBUG:
-    print("part one done")
+    print("done syncing db to fs")
 
 # second part: sync fs to db
 if DEBUG:
@@ -94,4 +94,4 @@ if removal_pending or image_added:
     Path(config('PROJECT_PATH') + '/site_run/image_added').touch(exist_ok=True)
 
 if DEBUG:
-    print("part two done")
+    print("done syncing fs to db")
