@@ -179,14 +179,25 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
 
     Change directory rights so image files can be managed from your file manager:
     ```
-    chmod 777 pictures
+    chmod 777 pictures/
     ```
 
 * Edit the shell scripts.  
     Change the installation directories in ``sitebin/restart_fbi.sh`` and ``sitebin/startup.sh``.  
+    You can now test the scripts by setting ``DEBUG=True`` in ``.env``,  
+    then send an image to the email address using the keyword as the subject and  
+    ```
+    ./get_pics_by_mail.py
+    ```
+    You should find the image file in pictures/.  
+    Next, add another image to the Samba share and
+    ```
+    ./sync_database.py
+    ```
+    If you ``cat user_data/db.json``, there should be two entries in the database.
 
 * Set up Cron.  
-    For your user ``crontab -e``
+    For your user ``crontab -e``:
     ```
     INST_DIR=/home/schommer/monisrahmen
     VENV_PYTHON=/home/schommer/monisrahmen/bin/python3
@@ -195,7 +206,7 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
     @hourly                $VENV_PYTHON $INST_DIR/sync_database.py
     ```
 
-    For root ``sudo crontab -e``
+    For root ``sudo crontab -e``:
     ```
     INST_DIR=/home/schommer/monisrahmen
     @reboot                $INST_DIR/sitebin/startup.sh > /dev/null 2>&1
@@ -204,18 +215,32 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
     Adjust INST_DIR according to your installation directory.  
 
 * Set up incron.
-    Add root to ``/etc/incron.allow``
+    Add root to ``/etc/incron.allow``:
     ```
     echo root > /etc/incron.allow
     ```
 
-    For root ``sudo incrontab -e``
+    For root ``sudo incrontab -e``:
     ```
     /home/schommer/monisrahmen/site_run     IN_CREATE       /home/schommer/monisrahmen/sitebin/restart_fbi.sh
     ```
 
     Adjust the directories in the incrontab file accordingly.  
     fbi is restarted by incron after a new image attachment has been downloaded and processed.
+
+* Optimize the system.
+    Disable logging in ``/etc/systemd/journald.conf``:
+    ```
+    Storage=none
+    ```
+
+    Disable unnecessary services:
+    ```
+    systemctl disable avahi-daemon
+    systemctl stop avahi-daemon
+    systemctl disable triggerhappy
+    systemctl stop triggerhappy
+    ```
 
 ## License
 
@@ -226,7 +251,7 @@ Distributed under the New BSD License, see LICENSE.txt.
 Inspiration, documentation, code snippets, etc.
 * [Building a living photo frame](https://www.ofbrooklyn.com/2014/01/2/building-photo-frame-raspberry-pi-motion-detector/)
 * Waveshare display [Wiki](https://www.waveshare.com/wiki/70H-1024600) 
-* [RCWL-0516](https://wolles-elektronikkiste.de/en/rcwl-0516-microwave-radar-motion-detector) microwave radar motion detector
+* [RCWL-0516](https://github.com/jdesbonnet/RCWL-0516) microwave radar motion detector
 * Raspberry Pi [config.txt](https://www.raspberrypi.com/documentation/computers/config_txt.html) documentation
 * Crontab configuration ``man 5 crontab``
 * incrontab configuraiton ``man 5 incrontab``
