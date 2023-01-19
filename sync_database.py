@@ -90,7 +90,7 @@ for fileName in fs_files:
         pass
 
 # trigger fbi restart
-if image_added:
+if removal_pending or image_added:
     Path(config('PROJECT_PATH') + '/site_run/image_added').touch(exist_ok=True)
 
 if DEBUG:
