@@ -214,7 +214,7 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
 
     Adjust INST_DIR according to your installation directory.  
 
-* Set up incron.
+* Set up incron.  
     Add root to ``/etc/incron.allow``:
     ```
     echo root > /etc/incron.allow
@@ -228,7 +228,7 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
     Adjust the directories in the incrontab file accordingly.  
     fbi is restarted by incron after a new image attachment has been downloaded and processed.
 
-* Optimize the system.
+* Optimize the system.  
     Disable logging in ``/etc/systemd/journald.conf``:
     ```
     Storage=none
