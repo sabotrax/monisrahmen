@@ -15,15 +15,17 @@ from helper import in_between_days
 from time import sleep, time
 
 DEBUG = config('DEBUG', default=False, cast=bool)
+ms = config('MOTION_SENSOR')
 
 GPIO.setmode(GPIO.BCM)
 
-# motion sensor
+# Motion sensor
 GPIO.setup(17, GPIO.IN)
-GPIO.setup(27, GPIO.OUT)
 
-# enable motion sensor
-GPIO.output(27, GPIO.HIGH)
+if ms == "RCWL-0516":
+    GPIO.setup(27, GPIO.OUT)
+    # enable motion sensor
+    GPIO.output(27, GPIO.HIGH)
 
 # display brightness pwm
 GPIO.setup(18, GPIO.OUT)
