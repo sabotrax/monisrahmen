@@ -12,6 +12,7 @@ These instructions are for the redesigned frame.
 * 3 x Jumper wire female-to-female 20 cm.
 * 1 x HDMI cable mini HDMI male to HDMI male 30 cm.
 * 1 x USB cable micro male to micro male.
+* 1 x USB cable A to micro male.
 * 1 x Display Waveshare 7inch QLED 1024×600 (Touch is not used atm, so this is a waste of money. Go for the non-touch version if available.)
 * 1 x Raspberry Pi Zero 2.
 * 1 x Sensor HLK-LD2410C Human Presence Motion Module.
@@ -44,7 +45,8 @@ These instructions are for the redesigned frame.
 ### Step 6
 
 * Clip the case onto the snap fits of the base with the groves in the case facing up.
-* Connect the display to the Pi using the USB and HDMI cables fitting the cables through the culvert of the case.
+* Connect the display to the Pi using the USB and HDMI cables fitting the cables through the culvert of the case. Use the non-touch micro USB port of the display.
+* Connect the USB A cable to the remaining micro USB port of the Pi to power the frame.
 
 ### Step 7
 
