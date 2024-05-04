@@ -6,11 +6,11 @@ A digital picture frame you can send emails to.
 
 ## Description
 
-Send pictures as email attachments.
-They will be downloaded and displayed in a loop.  
+Send pictures as email attachments or put them on a network share.
+They will be displayed in a random loop. 
 
-The mounting frame is 3D printed.  
-Some light soldering is required.
+The frame is 3D printed.  
+Some light soldering may be required.
 
 ## Features
 
@@ -21,6 +21,16 @@ Some light soldering is required.
 * Off-hours can be enabled, so the screen stays off after blanking.
 * A splash screen is showing device information.
 * Most options are configurable.
+
+### Remark
+
+There's a redesigned version of the frame.  
+Files with the naming scheme *frame2_* are referring to it.  
+They're located in [site_documents/](site_documents/).  
+A larger printer is required also.  
+The software installation largely stays the same.
+
+<img src="site_documents/pictures/frame2_front.jpg" width="400">
 
 ### Bill of materials
 
@@ -106,6 +116,9 @@ Frame and stand have been printed in PETG with 15 % infill and supports, but PLA
     RELOAD_IMAGE=120
     # image transition time (milliseconds)
     BLEND_IMAGE=500
+    # motion sensor (either or)
+    MOTION_SENSOR=RCWL-0516
+    #MOTION_SENSOR=HLK-LD2410C # redesigned version
     # motion sensor timeout for screen blanking (seconds)
     DISPLAY_TIMEOUT=120
     # display off-hours
